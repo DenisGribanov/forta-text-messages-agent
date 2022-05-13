@@ -6,7 +6,6 @@ from word_cache import WordCache
 EMPTY_DATA = '0x'
 ZERO_VALUE = 0
 
-
 def provide_handle_transaction(get_transaction_receipt):
     def handle_transaction(transaction_event):
         findings = []
@@ -26,6 +25,10 @@ def provide_handle_transaction(get_transaction_receipt):
             return findings
 
         text_msg = tx_data_to_text(receipt.transaction.data)
+
+        if text_msg is None or text_msg == "":
+            return findings
+
 
         findings.append(Finding({
             'name': 'A text message has been sent',
@@ -56,8 +59,11 @@ def get_severity(text_msg):
 
 
 def tx_data_to_text(data):
-    web3_provider = get_web3_provider()
-    return web3_provider.toText(data)
+    try:
+        web3_provider = get_web3_provider()
+        return web3_provider.toText(data)
+    except:
+        return None
 
 
 real_handle_transaction = provide_handle_transaction(get_transaction_receipt)
