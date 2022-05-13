@@ -1,6 +1,6 @@
 {
   "name": "forta-text-messages-agent",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "search for text messages inside transactions",
   "scripts": {
     "postinstall": "python3 -m pip install -r requirements_dev.txt",
