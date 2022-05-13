@@ -1,6 +1,6 @@
 from forta_agent import Finding, FindingType, FindingSeverity, get_transaction_receipt, get_web3_provider
-
-from word_cache import WordCache
+import os
+import sys
 
 EMPTY_DATA = '0x'
 ZERO_VALUE = 0
@@ -70,3 +70,32 @@ real_handle_transaction = provide_handle_transaction(get_transaction_receipt)
 
 def handle_transaction(transaction_event):
     return real_handle_transaction(transaction_event)
+
+
+class WordCache(object):
+    words = []
+
+    def __new__(cls):
+        if not hasattr(cls, 'instance'):
+            cls.instance = super(WordCache, cls).__new__(cls)
+        return cls.instance
+
+    def exists_assault_world(self, text):
+        file_path = os.path.join(sys.path[0], 'assault_word.txt')
+
+        if len(self.words) == 0 and os.path.exists(file_path):
+            file = open(file_path, "r")
+            self.words = file.read().splitlines()
+
+        for word in self.words:
+            find = text.find(word.strip())
+
+            if find != -1:
+                return True
+            else:
+                continue
+
+        return  False
+
+
+wordCache = WordCache()
