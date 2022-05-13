@@ -1,5 +1,4 @@
-from forta_agent import Finding, FindingType, FindingSeverity, \
-    get_transaction_receipt, transaction, transaction_event, get_web3_provider
+from forta_agent import Finding, FindingType, FindingSeverity, get_transaction_receipt, get_web3_provider
 
 from word_cache import WordCache
 
