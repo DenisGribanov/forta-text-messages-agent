@@ -16,6 +16,11 @@ NOT_EQUAL_TO_ZERO = "0x2bc6cb30ec2000"
 #https://etherscan.io/tx/0xfba4c700815a9fee055889b06ec00b1b3fb89ed3c4a33a3bba2e32711c757dc0
 CALL_CONTRACT_DATA ="0xe63d38ed000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000001000000000000000000000000e4c808592a4f60b09350c20151b5f17ee2437564000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000470de4df820000"
 
+EMPTY_MESSAGE="0x20"
+
+
+MESSAGE_3 = "0x00500072006500700061007200650064002000620079002000630072007900700074006f0061007000690073002e0069006f"
+
 ONE_ADDRESS = "0x1111111111111111111111111111111111111111"
 TWO_ADDRESS = "0x2222222222222222222222222222222222222222"
 
@@ -60,6 +65,22 @@ class TestMessagesAgent:
                 'to': TWO_ADDRESS,
                 'hash': "0",
                 'value': NOT_EQUAL_TO_ZERO
+            },
+            'receipt': {
+                'logs': []}})
+
+        findings = handle_transaction(tx_event)
+        print(findings)
+        assert len(findings) == 0
+
+    def test_returns_empty_findings_if_sent_empty_msg(self):
+        tx_event = create_transaction_event({
+            'transaction': {
+                'from': ONE_ADDRESS,
+                'to': TWO_ADDRESS,
+                'hash': "0",
+                'value': NOT_EQUAL_TO_ZERO,
+                'data' : EMPTY_MESSAGE
             },
             'receipt': {
                 'logs': []}})

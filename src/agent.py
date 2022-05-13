@@ -3,7 +3,8 @@ import forta_agent
 
 
 EMPTY_DATA = '0x'
-ZERO_VALUE = '0x0'
+ZERO_VALUE = 0
+MIN_TEXT_LEN = 3
 words = ["you", "looser","scam", "lmao", "nitwit", "fuck","suck","fucking","cunt","bullshit",
          "bitch","gay","ass","bastard","faggot","shit","stupid","asshole","virgin","penis","exploit","exploiter",
          "exploitation","exploiter","exploiting","exploited","exploitative","exploitable","hacker","hack",
@@ -18,7 +19,7 @@ def handle_transaction(transaction_event: forta_agent.transaction_event.Transact
         return findings
 
     # the amount of ether sent must be greater than 0
-    if transaction_event.transaction is not None and transaction_event.transaction.value == 0:
+    if transaction_event.transaction is not None and transaction_event.transaction.value == ZERO_VALUE:
         return findings
 
     # if more, then it is a function call in contact. we need a regular transfer of ether
@@ -31,21 +32,15 @@ def handle_transaction(transaction_event: forta_agent.transaction_event.Transact
 
     text_msg = tx_data_to_text(transaction_event.transaction.data)
 
-    if text_msg is None or text_msg == "":
+    if text_msg is None or text_msg == "" or len(text_msg) < MIN_TEXT_LEN:
         return findings
 
     findings.append(Finding({
         'name': 'A text message has been sent',
-        'description': 'A text message was detected inside the transaction',
+        'description': text_msg,
         'alert_id': 'forta-text-messages-agent',
         'type': FindingType.Info,
         'severity': get_severity(text_msg),
-        'metadata': {
-            'message': text_msg,
-            'from': transaction_event.transaction.from_,
-            'to': transaction_event.transaction.to,
-            'tx_hash': transaction_event.hash,
-        }
     }))
 
     return findings
@@ -65,6 +60,6 @@ def get_severity(text_msg):
 def tx_data_to_text(data):
     try:
         web3_provider = get_web3_provider()
-        return web3_provider.toText(data)
+        return web3_provider.toText(data).strip()
     except:
         return None
