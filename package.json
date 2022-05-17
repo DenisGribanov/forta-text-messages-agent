@@ -2,6 +2,9 @@
   "name": "forta-text-messages-agent",
   "version": "0.0.4",
   "description": "search for text messages inside transactions",
+  "chainIds": [
+    1, 56, 137, 43114, 42161, 10
+  ],
   "scripts": {
     "postinstall": "python3 -m pip install -r requirements_dev.txt",
     "start": "npm run start:dev",
