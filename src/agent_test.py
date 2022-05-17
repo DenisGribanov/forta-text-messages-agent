@@ -89,10 +89,9 @@ class TestMessagesAgent:
                 'logs': []}})
 
         findings = handle_transaction(tx_event)
-        print(findings)
         assert len(findings) == 0
 
-    def test_returns_severity_medium_findings(self):
+    def test_returns_empty_findings_if_no_keywords(self):
         tx_event = create_transaction_event({
             'transaction': {
                 'from': ONE_ADDRESS,
@@ -106,9 +105,7 @@ class TestMessagesAgent:
 
         findings = handle_transaction(tx_event)
 
-        assert len(findings) == 1
-        finding = findings[0]
-        assert finding.severity == FindingSeverity.Medium
+        assert len(findings) == 0
 
     def test_returns_severity_high_findings(self):
         tx_event = create_transaction_event({

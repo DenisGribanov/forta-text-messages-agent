@@ -36,10 +36,13 @@ def handle_transaction(transaction_event: forta_agent.transaction_event.Transact
 
     severity = get_severity(text_msg)
 
+    if severity != FindingSeverity.High:
+        return findings
+
     findings.append(Finding({
         'name': 'A text message has been sent',
         'description': text_msg,
-        'alert_id': ALERT_ID_FOR_HIGH if severity == FindingSeverity.High else ALERT_ID_FOR_MEDIUM,
+        'alert_id': ALERT_ID_FOR_HIGH,
         'type': FindingType.Info,
         'severity': severity,
     }))
