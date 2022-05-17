@@ -24,12 +24,6 @@ def handle_transaction(transaction_event: forta_agent.transaction_event.Transact
     if len(transaction_event.logs) > 0:
         return findings
 
-    # if more, then it is a function call in contact. we need a regular transfer of ether
-    if transaction_event.traces is not None and (len(transaction_event.traces) > 1 or
-                                                 len(transaction_event.traces) > 0 and (transaction_event.traces[
-                                                     0].error == REVERTRED or transaction_event.traces[0].subtraces == 1)):
-        return findings
-
     # empty data
     if transaction_event.transaction.data is None or transaction_event.transaction.data == EMPTY_DATA or \
             transaction_event.transaction.data == EMPTY_MESSAGE:
@@ -41,8 +35,6 @@ def handle_transaction(transaction_event: forta_agent.transaction_event.Transact
         return findings
 
     severity = get_severity(text_msg)
-
-    alert_id = ALERT_ID_FOR_MEDIUM
 
     findings.append(Finding({
         'name': 'A text message has been sent',
