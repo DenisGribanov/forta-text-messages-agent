@@ -1,6 +1,6 @@
 {
   "name": "forta-text-messages-agent",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "search for text messages inside transactions",
   "chainIds": [
     1, 56, 137, 43114, 42161, 10
