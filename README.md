@@ -6,10 +6,8 @@ Search for text messages inside transactions
 
 ## Alerts
 - forta-text-messages-agent
-  - Fire when a transaction contains empty logs, value > 0, input_data is not empty
-  - Severity is always set to "medium" if input_data contains UTF-8 text, "high" if input_dat contains one of the keywords (e.g. hack, scam, or the word insult (the list of words is in the file assault_word.txt))
+  - Severity is "high" if input_data contains one of the keywords (e.g. hack, scam, or the word insult)
   - Type is always set to "Info"
-  - description contains a "input_data" in UTF-8
 
 ## Test Data
 
