@@ -2,7 +2,7 @@
 Search for text messages inside transactions
 
 ## Supported Chains
-- Ethereum
+- Ethereum, Optimism, BSC, Polygon, Fantom, Arbitrum, Avalanche
 
 ## Alerts
 - forta-text-messages-agent
