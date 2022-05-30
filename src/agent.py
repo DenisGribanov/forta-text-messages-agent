@@ -6,9 +6,11 @@ EMPTY_MESSAGE = '0x0000000000000000000000000000000000000000'
 REVERTRED = 'Reverted'
 ZERO_VALUE = 0
 MIN_TEXT_LEN = 3
-words = ["you", "looser", "scam", "lmao", "nitwit", "fuck", "suck", "fucking", "cunt", "bullshit",
+words = ["stolen", "steal", "stole", "stealing", "looser", "scam", "lmao", "nitwit", "fuck", "suck", "fucking", "cunt", "bullshit",
          "bitch", "gay", "ass", "bastard", "faggot", "shit", "stupid", "asshole", "virgin", "penis", "exploit",
-         "exploiter",
+         "exploiter", "hijack", "seize", "robber", "captor", "kidnap", "abduct", "abductor", "abducting", "burglar",
+         "thief", "kidnapper", "pilferer", "rogue", "scoundrel", "brat", "yobbo", "blighter", "stinker",
+         "vermin", "conman", "fraud", "crud", "whore", "hussy",
          "exploitation", "exploiter", "exploiting", "exploited", "exploitative", "exploitable", "hacker", "hack",
          "hacked", "hacker", "hacking", "cheated", "cheating", "cheat", "whale", "fishing", "attack", "attackable",
          "attacking", "attacker", "attacked", ]
@@ -36,9 +38,6 @@ def handle_transaction(transaction_event: forta_agent.transaction_event.Transact
 
     severity = get_severity(text_msg)
 
-    if severity != FindingSeverity.High:
-        return findings
-
     findings.append(Finding({
         'name': 'A text message has been sent',
         'description': text_msg,
@@ -57,7 +56,7 @@ def get_severity(text_msg):
         else:
             continue
 
-    return FindingSeverity.Medium
+    return FindingSeverity.Low
 
 
 def tx_data_to_text(data):
