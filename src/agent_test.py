@@ -29,6 +29,9 @@ EMPTY_MESSAGE_V2 = '0x0000000000000000000000000000000000000000'
 ONE_ADDRESS = "0x1111111111111111111111111111111111111111"
 TWO_ADDRESS = "0x2222222222222222222222222222222222222222"
 
+ALERT_ID_FOR_HIGH = 'forta-text-messages-possible-hack'
+ALERT_ID_FOR_LOW = 'forta-text-messages-agent'
+
 
 class TestMessagesAgent:
 
@@ -111,6 +114,7 @@ class TestMessagesAgent:
         assert len(findings) == 1
         finding = findings[0]
         assert finding.severity == FindingSeverity.Low
+        assert finding.alert_id == ALERT_ID_FOR_LOW
 
     def test_returns_severity_high_findings(self):
         tx_event = create_transaction_event({
@@ -129,3 +133,4 @@ class TestMessagesAgent:
         assert len(findings) == 1
         finding = findings[0]
         assert finding.severity == FindingSeverity.High
+        assert finding.alert_id == ALERT_ID_FOR_HIGH

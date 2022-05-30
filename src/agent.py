@@ -16,7 +16,7 @@ words = ["stolen", "steal", "stole", "stealing", "looser", "scam", "lmao", "nitw
          "attacking", "attacker", "attacked", ]
 
 ALERT_ID_FOR_HIGH = 'forta-text-messages-possible-hack'
-ALERT_ID_FOR_MEDIUM = 'forta-text-messages-agent'
+ALERT_ID_FOR_LOW = 'forta-text-messages-agent'
 
 
 def handle_transaction(transaction_event: forta_agent.transaction_event.TransactionEvent):
@@ -41,7 +41,7 @@ def handle_transaction(transaction_event: forta_agent.transaction_event.Transact
     findings.append(Finding({
         'name': 'A text message has been sent',
         'description': text_msg,
-        'alert_id': ALERT_ID_FOR_HIGH,
+        'alert_id': ALERT_ID_FOR_HIGH if severity == FindingSeverity.High else ALERT_ID_FOR_LOW,
         'type': FindingType.Info,
         'severity': severity,
     }))
