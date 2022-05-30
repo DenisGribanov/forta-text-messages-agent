@@ -7,6 +7,10 @@ EMPTY_MESSAGE = ['0x0000000000000000000000000000000000000000',
 REVERTRED = 'Reverted'
 ZERO_VALUE = 0
 MIN_TEXT_LEN = 4
+
+stop_symbol = ['&', '%', '}', '{', '>', '<', '|', '[', '^', ')', 'Ҿ', '⻱', '΢',
+               '', 'Ĭ', '', '', '', '', 'ҁ','ˣ', '','','', '', '޺']
+
 words = ["stolen", "steal", "stole", "stealing", "looser", "scam", "lmao", "nitwit", "fuck", "suck", "fucking", "cunt",
          "bullshit",
          "bitch", "gay", "ass", "bastard", "faggot", "shit", "stupid", "asshole", "virgin", "penis", "exploit",
@@ -63,7 +67,7 @@ def get_severity(text_msg):
 
 
 def check_forbidden_symbol(text_msg):
-    for word in ['&', '%', '}', '>', '|', '[', '^', ')', 'Ҿ', '⻱', '΢','']:
+    for word in stop_symbol:
         if word in text_msg:
             return True
         else:
