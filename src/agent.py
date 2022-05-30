@@ -2,11 +2,13 @@ from forta_agent import Finding, FindingType, FindingSeverity, get_web3_provider
 import forta_agent
 
 EMPTY_DATA = '0x'
-EMPTY_MESSAGE = '0x0000000000000000000000000000000000000000'
+EMPTY_MESSAGE = ['0x0000000000000000000000000000000000000000',
+                 '0x0000000000000000000000000000000000000000000000000000000000000000']
 REVERTRED = 'Reverted'
 ZERO_VALUE = 0
-MIN_TEXT_LEN = 3
-words = ["stolen", "steal", "stole", "stealing", "looser", "scam", "lmao", "nitwit", "fuck", "suck", "fucking", "cunt", "bullshit",
+MIN_TEXT_LEN = 4
+words = ["stolen", "steal", "stole", "stealing", "looser", "scam", "lmao", "nitwit", "fuck", "suck", "fucking", "cunt",
+         "bullshit",
          "bitch", "gay", "ass", "bastard", "faggot", "shit", "stupid", "asshole", "virgin", "penis", "exploit",
          "exploiter", "hijack", "seize", "robber", "captor", "kidnap", "abduct", "abductor", "abducting", "burglar",
          "thief", "kidnapper", "pilferer", "rogue", "scoundrel", "brat", "yobbo", "blighter", "stinker",
@@ -28,12 +30,13 @@ def handle_transaction(transaction_event: forta_agent.transaction_event.Transact
 
     # empty data
     if transaction_event.transaction.data is None or transaction_event.transaction.data == EMPTY_DATA or \
-            transaction_event.transaction.data == EMPTY_MESSAGE:
+            transaction_event.transaction.data in EMPTY_MESSAGE:
         return findings
 
     text_msg = tx_data_to_text(transaction_event.transaction.data)
 
-    if text_msg is None or text_msg == "" or len(text_msg) < MIN_TEXT_LEN:
+    if text_msg is None or text_msg == "" or len(text_msg) < MIN_TEXT_LEN or text_msg is not None and check_forbidden_symbol(
+            text_msg):
         return findings
 
     severity = get_severity(text_msg)
@@ -57,6 +60,16 @@ def get_severity(text_msg):
             continue
 
     return FindingSeverity.Low
+
+
+def check_forbidden_symbol(text_msg):
+    for word in ['&', '%', '}', '>', '|', '[', '^', ')', 'Ҿ', '⻱', '΢','']:
+        if word in text_msg:
+            return True
+        else:
+            continue
+
+    return False
 
 
 def tx_data_to_text(data):
