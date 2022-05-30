@@ -5,9 +5,18 @@ Search for text messages inside transactions
 - Ethereum, Optimism, BSC, Polygon, Fantom, Arbitrum, Avalanche
 
 ## Alerts
-- forta-text-messages-agent
-  - Severity is "high" if input_data contains one of the keywords (e.g. hack, scam, or the word insult)
-  - Type is always set to "Info"
+- alert id : 'forta-text-messages-possible-hack'
+- Type is always set to "Info"
+- Severity is "high" and alert_id "forta-text-messages-possible-hack" if input_data contains one of the keywords: 
+  stolen, steal, stole, stealing, looser, scam, lmao, nitwit, fuck, suck, fucking, cunt, bullshit,
+  bitch, gay, ass, bastard, faggot, shit, stupid, asshole, virgin, penis, exploit,
+  exploiter, hijack, seize, robber, captor, kidnap, abduct, abductor, abducting, burglar,
+  thief, kidnapper, pilferer, rogue, scoundrel, brat, yobbo, blighter, stinker,
+  vermin, conman, fraud, crud, whore, hussy,exploitation, exploiter, exploiting, 
+  exploited, exploitative, exploitable, hacker, hack,hacked, hacker, hacking, 
+  cheated, cheating, cheat, whale, fishing, attack, attackable,attacking, attacker, attacked
+ 
+
 
 ## Test Data
 
