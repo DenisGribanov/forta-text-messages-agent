@@ -13,7 +13,7 @@ MAX_EMPTY_SYMBOL_IN_MSG = 0.3
 
 stop_symbol = ['&', '%', '}', '{', '>', '<', '|', '[', '^', ')', 'Ҿ', '⻱', '΢',
                '', 'Ĭ', '', '', '', '', 'ҁ', 'ˣ', '', '', '', '', '޺', '', '',
-               '', '', '']
+               '', '', '', '', '', '']
 
 words = ["stolen", "steal", "stole", "stealing", "looser", "scam", "lmao", "nitwit", "fuck", "suck", "fucking", "cunt",
          "bullshit",
@@ -90,16 +90,20 @@ def check_forbidden_symbol(text_msg):
 # if the percentage of digits in the message is greater than a certain value, then this is not a text message.
 def msg_is_text(text_msg):
     length_of_numeric = 0
+    space_count = 0
 
     for t in re.findall('[0-9]+', text_msg):
         length_of_numeric += len(t)
 
-    if length_of_numeric == 0:
-        return True
-    elif length_of_numeric / len(text_msg) > MAX_NUM_OF_DIGITS_IN_MSG:
+    for t in re.findall(r'\s', text_msg):
+        space_count += len(t)
+
+    # 1001-707212
+    # DC-L5:YFgmltueICLmM4ZXxYlEuo6SmMxkQ1j79Rt9wuswg7A=
+    if length_of_numeric / len(text_msg) > MAX_NUM_OF_DIGITS_IN_MSG or space_count == 0 and len(text_msg) > 10:
         return False
-    else:
-        return True
+
+    return True
 
 
 def tx_data_to_text(data):

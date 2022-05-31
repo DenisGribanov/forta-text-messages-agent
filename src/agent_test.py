@@ -105,7 +105,7 @@ class TestMessagesAgent:
                 'to': TWO_ADDRESS,
                 'hash': "0",
                 'value': NOT_EQUAL_TO_ZERO,
-                'data': '0x423b4b27'
+                'data': '0x44432d4c353a5946676d6c74756549434c6d4d345a5878596c45756f36536d4d786b51316a3739527439777573776737413d'
             },
             'receipt': {
                 'logs': []}})
